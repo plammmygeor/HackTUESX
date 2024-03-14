@@ -50,4 +50,6 @@ client.on_message = on_message
 
 client.connect(MQTT_BROKER, 8884, 60)
 
-client.loop_forever()
+# client.loop_forever()
+
+
