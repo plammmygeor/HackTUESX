@@ -58,8 +58,8 @@ def on_log(client, userdata, paho_log_level, messages):
         print(messages)
 
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2,"ff",protocol=mqtt.MQTTv5,transport="tcp")
-client.password=password;
-client.username=username;
+client.password=password
+client.username=username
 client.on_log = on_log
 print ("2")
 client.username_pw_set(username, password) 
@@ -87,7 +87,7 @@ print ("7")
 while (2):
     client.loop()
     print(client.is_connected())
-    print(client.reconnect());
-    time.sleep(1.1);
+    print(client.reconnect())
+    time.sleep(1.1)
 
 

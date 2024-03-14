@@ -62,16 +62,15 @@ def on_message(client, userdata, msg):
     except Exception as e:
         print("Error:", e)    
 
-client = paho.Client(client_id="", userdata=None, protocol=paho.MQTTv5)
+client = paho.Client(callback_api_version=2)
 client.on_connect = on_connect
 
-# enable TLS for secure connection
-client.tls_set(tls_version=mqtt.client.ssl.PROTOCOL_TLS)
+# Enable TLS for secure connection
+client.tls_set()
 
 client.username_pw_set(username, password)
 client.connect(broker, port, 60)
 
-# client.on_subscribe = on_subscribe
 client.on_message = on_message
 
 client.subscribe(topic, qos=2)
