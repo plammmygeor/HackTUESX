@@ -10,7 +10,7 @@ mydb = mysql.connector.connect(
 )
 
 def insert_data_into_database(time, pulse):
-    mysql = "INSERT INTO sleep_data (time, pulse) VALUES (%s, %s)"
+    mysql = "INSERT INTO sleep (timestamp, pulse_sensor) VALUES (%s, %s)"
     value = (time, pulse)
     mycursor = mydb.cursor()
     mycursor.execute(mysql, value)
@@ -18,7 +18,7 @@ def insert_data_into_database(time, pulse):
 
 def on_connect(client, rc):
     print("Connected with result code " +str(rc))
-    client.subscribe("your_topic")
+    client.subscribe("sleep")
 
 def on_message(msg):
     print("Received message: " + msg.topic + " " + str(msg.payload))
