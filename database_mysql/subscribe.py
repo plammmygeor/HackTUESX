@@ -15,12 +15,13 @@ def insert_data_into_database(time, pulse):
     mycursor = mydb.cursor()
     mycursor.execute(mysql, value)
     mydb.commit()
+    mycursor.close()
 
-def on_connect(client, rc):
+def on_connect(client, userdata, flags, rc):
     print("Connected with result code " + str(rc))
     client.subscribe("sleep")
 
-def on_message(msg):
+def on_message(client, userdata, msg):
     print("Received message: " + msg.topic + " " + str(msg.payload))
     
     try:
@@ -39,7 +40,7 @@ def on_message(msg):
     except Exception as e:
         print("Error:", e)
 
-client = mqtt.Client(client_id="sleep-dream")
+client = mqtt.Client(client_id="sleep-dream", mqttbroker = "broker.mqttdashboard.com")
 client.on_connect = on_connect
 client.on_message = on_message
 
