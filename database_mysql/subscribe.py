@@ -16,11 +16,11 @@ def insert_data_into_database(time, pulse):
     mycursor.execute(mysql, value)
     mydb.commit()
 
-def on_connect(client, userdata, flags, rc):
-    print("Connected with result code "+str(rc))
+def on_connect(client, rc):
+    print("Connected with result code " +str(rc))
     client.subscribe("your_topic")
 
-def on_message(client, userdata, msg):
+def on_message(msg):
     print("Received message: " + msg.topic + " " + str(msg.payload))
     
     try:
