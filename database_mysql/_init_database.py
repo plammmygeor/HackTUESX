@@ -4,9 +4,8 @@ mydb = mysql.connector.connect(
   host="localhost",
   user="root",
   password="hacktues",
+  auth_plugin='mysql_native_password'
 )
 
-database_name = "Sleep"  
-
 mycursor = mydb.cursor()
-mycursor.execute("CREATE DATABASE " + database_name)
+mycursor.execute("CREATE DATABASE Sleep")
