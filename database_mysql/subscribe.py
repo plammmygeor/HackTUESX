@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 import random
 import time
+
 load_dotenv()
 
 mydb = mysql.connector.connect(
@@ -81,5 +82,3 @@ while (2):
     print(client.is_connected())
     print(client.reconnect());
     time.sleep(0.01);
-
-
