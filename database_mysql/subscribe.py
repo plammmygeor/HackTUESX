@@ -24,7 +24,7 @@ def insert_data_into_database(pulse):
     mydb.commit()
     mycursor.close()
     print("INSERT INTO sleep_table (pulse_sensor) VALUE (%s);" % pulse)
-   
+
 broker = "ohhhhhh-ny7qjv.a01.euc1.aws.hivemq.cloud"
 port = 8883
 topic = "HACKTUESX/QUATRO/sens"
