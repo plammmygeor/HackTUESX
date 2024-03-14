@@ -1,5 +1,6 @@
 import paho.mqtt.client as mqtt
 import mysql.connector
+from umqtt.simple import MQTTClient
 
 mydb = mysql.connector.connect(
   host="127.0.0.1",
@@ -9,18 +10,30 @@ mydb = mysql.connector.connect(
   auth_plugin='mysql_native_password'
 )
 
+MQTT_CLIENT_ID = "sleep-dream"
+MQTT_BROKER = "broker.mqttdashboard.com"
+MQTT_TOPIC = "sleep-pull"
+
+def connect_to_mqtt_broker():
+    print("Connecting to MQTT server... ", end="")
+    client.connect()
+    print("Connected!")
+    client.subscribe(MQTT_TOPIC)
+    print("Subscribed to {}".format(MQTT_TOPIC))
+
 def insert_data_into_database(time, pulse):
     mysql = "INSERT INTO sleep (timestamp, pulse_sensor) VALUES (%s, %s)"
     value = (time, pulse)
     mycursor = mydb.cursor()
     mycursor.execute(mysql, value)
     mydb.commit()
+    mycursor.close()
 
-def on_connect(client, rc):
+def on_connect(client, userdata, flags, rc):
     print("Connected with result code " + str(rc))
     client.subscribe("sleep")
 
-def on_message(msg):
+def on_message(client, userdata, msg):
     print("Received message: " + msg.topic + " " + str(msg.payload))
     
     try:
@@ -39,7 +52,7 @@ def on_message(msg):
     except Exception as e:
         print("Error:", e)
 
-client = mqtt.Client(client_id="sleep-dream")
+client = MQTTClient(MQTT_CLIENT_ID, MQTT_BROKER)
 client.on_connect = on_connect
 client.on_message = on_message
 
