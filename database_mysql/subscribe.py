@@ -5,7 +5,7 @@ mydb = mysql.connector.connect(
   host="127.0.0.1",
   user="root",
   password="root",
-  database="sleep",  # Specify the database name
+  database="sleep",
   auth_plugin='mysql_native_password'
 )
 
