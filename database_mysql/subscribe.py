@@ -1,13 +1,16 @@
 import paho.mqtt.client as mqtt
 import mysql.connector
 
-# Replace the placeholders with your actual MySQL database connection details
-db_connection = mysql.connector.connect(
-    host="your_mysql_host",
-    user="your_mysql_username",
-    password="your_mysql_password",
-    database="your_mysql_database"
+mydb = mysql.connector.connect(
+  host="127.0.0.1",
+  user="root",
+  password="root",
+  auth_plugin='mysql_native_password'
 )
+
+mycursor = mydb.cursor()
+mycursor.execute("CREATE DATABASE IF NOT EXISTS sleep")
+
 
 
 def on_connect(client, userdata, flags, rc):
