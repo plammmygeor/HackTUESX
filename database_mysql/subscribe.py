@@ -13,13 +13,14 @@ MQTT_CLIENT_ID = "sleep-dream"
 MQTT_BROKER = "broker.mqttdashboard.com"
 MQTT_TOPIC = "sleep-pull"
 
-def insert_data_into_database(time, pulse):
-    mysql = "INSERT INTO sleep (timestamp, pulse_sensor) VALUES (%s, %s)"
-    value = (time, pulse)
+def insert_data_into_database(pulse):
+    mysql = "INSERT INTO sleep (pulse_sensor) VALUES ( %d);"
+    value = (pulse)
     mycursor = mydb.cursor()
     mycursor.execute(mysql, value)
     mydb.commit()
     mycursor.close()
+    print("already inserted")
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
@@ -33,16 +34,12 @@ def on_message(client, userdata, msg):
     
     try:
         payload_str = msg.payload.decode("utf-8") 
-        time_str, pulse_str = payload_str.split(",")
+        pulse_str = payload_str.split(",")
 
-        time = int(time_str) 
         pulse = int(pulse_str)  
 
-        insert_data_into_database(time, pulse)
-        print("Inserted into database: Time =", time, "Pulse =", pulse)
-   
-    except ValueError as e:
-        print("Error converting values to expected data types:", e)
+        insert_data_into_database(pulse)
+        print("Inserted into database:", "Pulse =", pulse)
     
     except Exception as e:
         print("Error:", e)
