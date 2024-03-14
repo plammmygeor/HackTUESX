@@ -20,7 +20,7 @@ resampled_data = data.resample('S').mean()
 
 # Plot the data
 plt.figure(figsize=(10, 6))
-plt.plot(resampled_data.index, resampled_data['pulse'], marker='o', linestyle='-')
+plt.plot(resampled_data.index, resampled_data['pulse_sensor'], marker='o', linestyle='-')  # Corrected column name
 plt.title('Pulse Change Over Time')
 plt.xlabel('Date')
 plt.ylabel('Pulse')
