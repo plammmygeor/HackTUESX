@@ -39,7 +39,7 @@ def on_message(msg):
     except Exception as e:
         print("Error:", e)
 
-client = mqtt.Client()
+client = mqtt.Client(client_id="sleep-dream")
 client.on_connect = on_connect
 client.on_message = on_message
 
