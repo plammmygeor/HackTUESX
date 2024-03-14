@@ -2,63 +2,52 @@ import paho.mqtt.client as mqtt
 import mysql.connector
 
 mydb = mysql.connector.connect(
-    host="127.0.0.1",
-    user="root",
-    password="root",
-    database="sleep",
-    auth_plugin='mysql_native_password'
-)
-
-MQTT_CLIENT_ID = "sleep-dream"
-MQTT_BROKER = "broker.mqttdashboard.com"
-MQTT_TOPIC = "sleep-pull"
+     host="127.0.0.1",
+     user="root",
+     password="root",
+     database="sleep",
+     auth_plugin='mysql_native_password'
+ )
 
 def insert_data_into_database(pulse):
-    mysql = "INSERT INTO sleep (pulse_sensor) VALUES ( %d);"
-    value = (pulse)
-    mycursor = mydb.cursor()
-    mycursor.execute(mysql, value)
-    mydb.commit()
-    mycursor.close()
-    print("already inserted")
+     mysql = "INSERT INTO sleep (pulse_sensor) VALUES (%s);"
+     value = pulse
+     mycursor = mydb.cursor()
+     mycursor.execute(mysql, value)
+     mydb.commit()
+     mycursor.close()
+
+broker = "ohhhhhh-ny7qjv.a01.euc1.aws.hivemq.cloud"
+port = 8883
+topic = "HACKTUESX/QUATRO/sens"
+username = "tester2"
+password = "4Dummies"
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
-        print("Connected to MQTT broker")
-        client.subscribe(MQTT_TOPIC)
+        print("Connected to MQTT Broker!")
+        client.subscribe(topic)
     else:
-        print("Failed to connect to MQTT broker with code:", rc)
+        print("Failed to connect, return code %d\n", rc)
 
 def on_message(client, userdata, msg):
     print("Received message: " + msg.topic + " " + str(msg.payload))
     
     try:
         payload_str = msg.payload.decode("utf-8") 
-        pulse_str = payload_str.split(",")
-
-        pulse = int(pulse_str)  
+        pulse = int(payload_str)  
 
         insert_data_into_database(pulse)
-        print("Inserted into database:", "Pulse =", pulse)
-    
+        print("Inserted into database: Pulse = ", pulse)
+ 
     except Exception as e:
         print("Error:", e)
 
-client = mqtt.Client(client_id=MQTT_CLIENT_ID)
+client = mqtt.Client()
+client.username_pw_set(username, password)  # Set username and password
 client.on_connect = on_connect
 client.on_message = on_message
 
-client.connect(MQTT_BROKER, 8884, 60)
+client.connect(broker, port, 60)
 
-#client.loop_forever()
-
-def print_menu():
-    print("1. Get Data")
-    print("2. Exit")
-
-client.loop_start()
-
-
-
-client.loop_stop()
-client.disconnect()
+client.loop_forever()
