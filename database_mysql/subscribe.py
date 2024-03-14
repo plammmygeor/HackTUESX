@@ -1,25 +1,17 @@
 import paho.mqtt.client as mqtt
 import mysql.connector
-from umqtt.simple import MQTTClient
 
 mydb = mysql.connector.connect(
-  host="127.0.0.1",
-  user="root",
-  password="root",
-  database="sleep",
-  auth_plugin='mysql_native_password'
+    host="127.0.0.1",
+    user="root",
+    password="root",
+    database="sleep",
+    auth_plugin='mysql_native_password'
 )
 
 MQTT_CLIENT_ID = "sleep-dream"
 MQTT_BROKER = "broker.mqttdashboard.com"
 MQTT_TOPIC = "sleep-pull"
-
-def connect_to_mqtt_broker():
-    print("Connecting to MQTT server... ", end="")
-    client.connect()
-    print("Connected!")
-    client.subscribe(MQTT_TOPIC)
-    print("Subscribed to {}".format(MQTT_TOPIC))
 
 def insert_data_into_database(time, pulse):
     mysql = "INSERT INTO sleep (timestamp, pulse_sensor) VALUES (%s, %s)"
@@ -30,8 +22,11 @@ def insert_data_into_database(time, pulse):
     mycursor.close()
 
 def on_connect(client, userdata, flags, rc):
-    print("Connected with result code " + str(rc))
-    client.subscribe("sleep")
+    if rc == 0:
+        print("Connected to MQTT broker")
+        client.subscribe(MQTT_TOPIC)
+    else:
+        print("Failed to connect to MQTT broker with code:", rc)
 
 def on_message(client, userdata, msg):
     print("Received message: " + msg.topic + " " + str(msg.payload))
@@ -52,10 +47,10 @@ def on_message(client, userdata, msg):
     except Exception as e:
         print("Error:", e)
 
-client = MQTTClient(MQTT_CLIENT_ID, MQTT_BROKER)
+client = mqtt.Client(client_id=MQTT_CLIENT_ID)
 client.on_connect = on_connect
 client.on_message = on_message
 
-client.connect("broker.mqttdashboard.com", 8884, 60)
+client.connect(MQTT_BROKER, 1883, 60)
 
 client.loop_forever()
