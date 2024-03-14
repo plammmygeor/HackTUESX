@@ -2,7 +2,6 @@ import mysql.connector
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Connect to MySQL database
 db_connection = mysql.connector.connect(
     host="127.0.0.1",
     user="root",
@@ -11,20 +10,13 @@ db_connection = mysql.connector.connect(
     auth_plugin='mysql_native_password'
 )
 
-# Define your SQL query to fetch data
-query = "SELECT timestamp, pulse FROM your_table"
+query = "SELECT timestamp, pulse_sensor FROM sleep"
 
-# Fetch data from MySQL database
 data = pd.read_sql(query, con=db_connection)
-
-# Convert timestamp column to datetime format
 data['timestamp'] = pd.to_datetime(data['timestamp'])
-
-# Set timestamp as index
 data.set_index('timestamp', inplace=True)
 
-# Resample the data to visualize changes over time
-resampled_data = data.resample('D').mean()  # Change 'D' to 'H', 'M', etc. for different time resolutions
+resampled_data = data.resample('S').mean()
 
 # Plot the data
 plt.figure(figsize=(10, 6))
