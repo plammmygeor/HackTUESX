@@ -5,11 +5,15 @@ mydb = mysql.connector.connect(
   host="127.0.0.1",
   user="root",
   password="root",
+  database="sleep",  # Specify the database name
   auth_plugin='mysql_native_password'
 )
 
-mycursor = mydb.cursor()
-mycursor.execute("CREATE DATABASE IF NOT EXISTS sleep")
+def insert_data_into_database(time, pulse):
+    sql = "INSERT INTO sleep_data (time, pulse) VALUES (%s, %s)"
+    value = (time, pulse)
+    mycursor.execute(sql, value)
+    mydb.commit()
 
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
@@ -19,18 +23,18 @@ def on_message(client, userdata, msg):
     print("Received message: " + msg.topic + " " + str(msg.payload))
     
     try:
-        # Assuming the payload is a string with values separated by a delimiter (e.g., comma)
-        payload_str = msg.payload.decode("utf-8")  # Decode the bytes to string
-        time_str, pulse_str = payload_str.split(",")  # Split the string by delimiter
+        payload_str = msg.payload.decode("utf-8") 
+        time_str, pulse_str = payload_str.split(",")
 
-        # Convert strings to appropriate data types if necessary
-        time = int(time_str)  # Assuming time is an integer
-        pulse = int(pulse_str)  # Assuming pulse is an integer
+        time = int(time_str) 
+        pulse = int(pulse_str)  
 
         insert_data_into_database(time, pulse)
         print("Inserted into database: Time =", time, "Pulse =", pulse)
+   
     except ValueError as e:
         print("Error converting values to expected data types:", e)
+    
     except Exception as e:
         print("Error:", e)
 
@@ -38,7 +42,6 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 
-# Replace the placeholders with your actual MQTT broker details
-client.connect("your_broker_address", 1883, 60)
+client.connect("broker.mqttdashboard.com", 1883, 60)
 
 client.loop_forever()
