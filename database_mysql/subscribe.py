@@ -17,7 +17,7 @@ def insert_data_into_database(time, pulse):
     mydb.commit()
 
 def on_connect(client, rc):
-    print("Connected with result code " +str(rc))
+    print("Connected with result code " + str(rc))
     client.subscribe("sleep")
 
 def on_message(msg):
