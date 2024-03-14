@@ -53,6 +53,9 @@ def on_message(client, userdata, msg):
         print("Error:", e)
 print ("1")
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2,"ff",protocol=mqtt.MQTTv5)
+client.password=password;
+client.username=username;
+
 print ("2")
 client.username_pw_set(username, password) 
 print ("3")
@@ -64,11 +67,19 @@ print(broker)
 print(port)
 print ("Status")
 print(client.connect(broker, port, 60))
-client.loop_start();
+# client.loop_start();
 print(client.is_connected())
+
+client.reconnect();
 client.subscribe(topic)
 print ("6")
-client.loop_forever()
+# client.loop_forever()
 print ("7")
+
+while (2):
+    client.loop()
+    print(client.is_connected())
+    print(client.reconnect());
+    time.sleep(0.01);
 
 
