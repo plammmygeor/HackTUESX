@@ -4,10 +4,11 @@ import matplotlib.pyplot as plt
 
 # Connect to MySQL database
 db_connection = mysql.connector.connect(
-    host="your_host",
-    user="your_username",
-    passwd="your_password",
-    database="your_database"
+    host="127.0.0.1",
+    user="root",
+    password="root",
+    database="sleep",
+    auth_plugin='mysql_native_password'
 )
 
 # Define your SQL query to fetch data
