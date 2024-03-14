@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS sleep (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-    pulse_sensor INT,
+    pulse_sensor INT
 );
