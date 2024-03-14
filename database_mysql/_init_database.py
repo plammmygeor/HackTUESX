@@ -1,29 +1,12 @@
 import mysql.connector
 
-host = 'localhost'
-user = 'hacktuesx'
-password = 'hacktues'
-database_name = 'Sleep_Data'
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  password="hacktues",
+)
 
-def create_database(host, user, password, database_name):
-    connection = None 
-    try:
-        connection = mysql.connector.connect(
-            host=host,
-            user=user,
-            password=password
-        )
-        
-        cursor = connection.cursor()
-        cursor.execute("CREATE DATABASE IF NOT EXISTS " + database_name)
-        print("Database '" + database_name + "' created successfully.")
+database_name = "Sleep"  
 
-    except mysql.connector.Error as error:
-        print("Failed to create database: " + str(error))
-
-    finally:
-        if connection is not None and connection.is_connected():
-            cursor.close()
-            connection.close()
-
-create_database(host, user, password, database_name)
+mycursor = mydb.cursor()
+mycursor.execute("CREATE DATABASE " + database_name)
