@@ -1,11 +1,9 @@
-import paho.mqtt.client as paho
-from paho import mqtt
+import paho.mqtt.client as mqtt
 import mysql.connector
 import os
 from dotenv import load_dotenv
 import random
 import time
-
 load_dotenv()
 
 mydb = mysql.connector.connect(
@@ -31,22 +29,14 @@ topic = "HACKTUESX/QUATRO/sens"
 username = "tester2"
 password = "4Dummies"
 
-def on_connect(client, userdata, flags, rc, properties=None):
+def on_connect(client, userdata, flags, rc):
     if rc == 0:
         print("Connected to MQTT Broker!")
         client.subscribe(topic)
     else:
         print("Failed to connect, return code %d\n", rc)
 
-    print("CONNACK received with code %s." % rc)
-
-
-# def on_subscribe(client, userdata, mid, granted_qos, properties=None):
-#     print("Subscribed: " + str(mid) + " " + str(granted_qos))
-
-
 def on_message(client, userdata, msg):
-    #print("recived" + msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
     print("Received message: " + msg.topic + " " + str(msg.payload))
     
     try:
@@ -60,20 +50,44 @@ def on_message(client, userdata, msg):
         print("Error converting values to expected data types:", e)
     
     except Exception as e:
-        print("Error:", e)    
+        print("Error:", e)
+print ("1")
 
-client = paho.Client(client_id="", userdata=None, protocol=paho.MQTTv5)
-client.on_connect = on_connect
+def on_log(client, userdata, paho_log_level, messages):
+    # if paho_log_level == mqtt.LogLevel.MQTT_LOG_ERR:
+        print(messages)
 
-# enable TLS for secure connection
-client.tls_set(tls_version=mqtt.client.ssl.PROTOCOL_TLS)
+client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2,"ff",protocol=mqtt.MQTTv5,transport="tcp")
+client.password=password;
+client.username=username;
+client.on_log = on_log
+print ("2")
+client.username_pw_set(username, password) 
+print ("3")
+# client.on_connect = on_connect
+print ("4")
+# client.on_message = on_message
+print ("5")
+print(broker)
+print(port)
+print ("Status")
+try:
+    print(client.connect(broker, port, 60))
+except:
+    print ("connection failed")
+# client.loop_start();
+print(client.is_connected())
 
-client.username_pw_set(username, password)
-client.connect(broker, port, 60)
+client.reconnect();
+client.subscribe(topic)
+print ("6")
+# client.loop_forever()
+print ("7")
 
-# client.on_subscribe = on_subscribe
-client.on_message = on_message
+while (2):
+    client.loop()
+    print(client.is_connected())
+    print(client.reconnect());
+    time.sleep(1.1);
 
-client.subscribe(topic, qos=2)
 
-client.loop_forever()

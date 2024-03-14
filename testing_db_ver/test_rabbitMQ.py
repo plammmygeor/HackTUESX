@@ -24,7 +24,6 @@ def insert_data_into_database(pulse_sensor):
 
 def on_message(channel, method, properties, body):
     print("Received message:", body)
-    
     try:
         pulse = int(body)
         insert_data_into_database(pulse)
