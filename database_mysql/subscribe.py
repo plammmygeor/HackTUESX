@@ -12,6 +12,7 @@ mydb = mysql.connector.connect(
 def insert_data_into_database(time, pulse):
     sql = "INSERT INTO sleep_data (time, pulse) VALUES (%s, %s)"
     value = (time, pulse)
+    mycursor = mydb.cursor()
     mycursor.execute(sql, value)
     mydb.commit()
 
