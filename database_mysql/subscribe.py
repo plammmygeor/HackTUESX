@@ -1,21 +1,27 @@
 import paho.mqtt.client as mqtt
 import mysql.connector
+import os
+from dotenv import load_dotenv
+import random
+import time
+load_dotenv()
 
 mydb = mysql.connector.connect(
-     host="127.0.0.1",
-     user="root",
-     password="root",
-     database="sleep",
-     auth_plugin='mysql_native_password'
- )
+    host=os.getenv("HOST"),
+    user=os.getenv("USER"),
+    password=os.getenv("PASSWORD"),
+    database=os.getenv("DATABASE"),
+    auth_plugin=os.getenv("AUTH_PLUGIN")
+)
 
 def insert_data_into_database(pulse):
-     mysql = "INSERT INTO sleep (pulse_sensor) VALUES (%s);"
-     value = pulse
-     mycursor = mydb.cursor()
-     mycursor.execute(mysql, value)
-     mydb.commit()
-     mycursor.close()
+    mysql = "INSERT INTO sleep_table (pulse_sensor) VALUES (%s);"
+    value = (pulse, )
+    mycursor = mydb.cursor()
+    mycursor.execute(mysql, value)
+    mydb.commit()
+    mycursor.close()
+    print("INSERT INTO sleep_table (pulse_sensor) VALUE (%s);" % pulse)
 
 broker = "ohhhhhh-ny7qjv.a01.euc1.aws.hivemq.cloud"
 port = 8883
@@ -39,15 +45,41 @@ def on_message(client, userdata, msg):
 
         insert_data_into_database(pulse)
         print("Inserted into database: Pulse = ", pulse)
- 
+   
+    except ValueError as e:
+        print("Error converting values to expected data types:", e)
+    
     except Exception as e:
         print("Error:", e)
+print ("1")
+client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2,"ff",protocol=mqtt.MQTTv5)
+client.password=password;
+client.username=username;
 
-client = mqtt.Client()
-client.username_pw_set(username, password)  # Set username and password
-client.on_connect = on_connect
-client.on_message = on_message
+print ("2")
+client.username_pw_set(username, password) 
+print ("3")
+# client.on_connect = on_connect
+print ("4")
+# client.on_message = on_message
+print ("5")
+print(broker)
+print(port)
+print ("Status")
+print(client.connect(broker, port, 60))
+# client.loop_start();
+print(client.is_connected())
 
-client.connect(broker, port, 60)
+client.reconnect();
+client.subscribe(topic)
+print ("6")
+# client.loop_forever()
+print ("7")
 
-client.loop_forever()
+while (2):
+    client.loop()
+    print(client.is_connected())
+    print(client.reconnect());
+    time.sleep(0.01);
+
+
