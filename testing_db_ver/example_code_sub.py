@@ -22,14 +22,12 @@ client.on_connect = on_connect
 
 client.tls_set(tls_version=mqtt.client.ssl.PROTOCOL_TLS)
 
-client.username_pw_set("<your_username>", "<your_password>")
-client.connect("", 8883, 60)
+client.username_pw_set("tester2", "4Dummies")
+client.connect("ohhhhhh-ny7qjv.a01.euc1.aws.hivemq.cloud", 8883, 60)
 
 client.on_subscribe = on_subscribe
 client.on_message = on_message
 
-client.subscribe("encyclopedia/#", qos=1)
-
-client.publish("encyclopedia/temperature", payload="hot", qos=1)
+client.subscribe("HACKTUESX/QUATRO/sens", qos=2)
 
 client.loop_forever()
