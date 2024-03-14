@@ -1,6 +1,5 @@
 import time
 import paho.mqtt.client as paho
-from paho import mqtt
 
 
 # setting callbacks for different events to see if it works, print the message etc.
@@ -17,10 +16,10 @@ def on_message(client, userdata, msg):
     print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
 
 
-client = paho.Client(client_id="", userdata=None, protocol=paho.MQTTv5)
+client = paho.Client(client_id="", userdata=None)
 client.on_connect = on_connect
 
-client.tls_set(tls_version=mqtt.client.ssl.PROTOCOL_TLS)
+client.tls_set(tls_version=paho.ssl.PROTOCOL_TLS)
 
 client.username_pw_set("tester2", "4Dummies")
 client.connect("ohhhhhh-ny7qjv.a01.euc1.aws.hivemq.cloud", 8883, 60)

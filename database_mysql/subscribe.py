@@ -40,18 +40,12 @@ def on_connect(client, userdata, flags, rc, properties=None):
 
     print("CONNACK received with code %s." % rc)
 
-
-# def on_subscribe(client, userdata, mid, granted_qos, properties=None):
-#     print("Subscribed: " + str(mid) + " " + str(granted_qos))
-
-
 def on_message(client, userdata, msg):
-    #print("recived" + msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
     print("Received message: " + msg.topic + " " + str(msg.payload))
-    
     try:
         payload_str = msg.payload.decode("utf-8") 
         pulse = int(payload_str)  
+
         insert_data_into_database(pulse)
         print("Inserted into database: Pulse = ", pulse)
    
