@@ -50,6 +50,15 @@ client.on_message = on_message
 
 client.connect(MQTT_BROKER, 8884, 60)
 
-# client.loop_forever()
+#client.loop_forever()
+
+def print_menu():
+    print("1. Get Data")
+    print("2. Exit")
+
+client.loop_start()
 
 
+
+client.loop_stop()
+client.disconnect()
