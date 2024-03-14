@@ -1,21 +1,46 @@
 import paho.mqtt.client as mqtt
 import mysql.connector
 
-mydb = mysql.connector.connect(
-  host="127.0.0.1",
-  user="root",
-  password="root",
-  auth_plugin='mysql_native_password'
-)
+def insert_data_into_database(pulse):
+    # MySQL database connection details
+    mysql_host = "127.0.0.1"
+    mysql_user = "root"
+    mysql_password = "root"
+    mysql_database = "sleep"
 
-mycursor = mydb.cursor()
-mycursor.execute("CREATE DATABASE IF NOT EXISTS sleep")
+    try:
+        # Connect to MySQL database
+        db_connection = mysql.connector.connect(
+            host=mysql_host,
+            user=mysql_user,
+            password=mysql_password,
+            database=mysql_database
+        )
 
+        # Create cursor
+        cursor = db_connection.cursor()
 
+        # Prepare SQL query to insert data
+        insert_query = "INSERT INTO sleep (pulse) VALUES (%s)"
+        data_to_insert = (pulse,)
+
+        # Execute the insert query
+        cursor.execute(insert_query, data_to_insert)
+
+        # Commit changes to the database
+        db_connection.commit()
+
+        # Close cursor and database connection
+        cursor.close()
+        db_connection.close()
+        
+        print("Data inserted into database successfully.")
+    except mysql.connector.Error as err:
+        print("Error:", err)
 
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
-    client.subscribe("your_topic")
+    client.subscribe("sleep")
 
 def on_message(client, userdata, msg):
     print("Received message: " + msg.topic + " " + str(msg.payload))
@@ -29,9 +54,7 @@ def on_message(client, userdata, msg):
         time = int(time_str)  # Assuming time is an integer
         pulse = int(pulse_str)  # Assuming pulse is an integer
 
-        insert_data_into_database(time, pulse)
-        print("Inserted into database: Time =", time, "Pulse =", pulse)
-    except ValueError as e:
+        insert_data_into_database(pulse)
         print("Error converting values to expected data types:", e)
     except Exception as e:
         print("Error:", e)
@@ -41,6 +64,6 @@ client.on_connect = on_connect
 client.on_message = on_message
 
 # Replace the placeholders with your actual MQTT broker details
-client.connect("your_broker_address", 1883, 60)
+client.connect("your_broker_address", 8884, 60)
 
 client.loop_forever()
