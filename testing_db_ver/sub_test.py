@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 import random
 import time
+
 load_dotenv()
 
 mydb = mysql.connector.connect(
