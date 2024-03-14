@@ -20,11 +20,13 @@ def insert_data_into_database(pulse):
     mycursor.execute(mysql, value)
     mydb.commit()
     mycursor.close()
-    print("INSERT INTO sleep (pulse_sensor) VALUE (%s);" % pulse)
+    print("INSERT INTO sleep_table (pulse_sensor) VALUE (%s);" % pulse)
    
-broker = "broker.mqttdashboard.com"
-port = 1883
-topic = "sleep-pull"
+broker = "ohhhhhh-ny7qjv.a01.euc1.aws.hivemq.cloud"
+port = 8883
+topic = "HACKTUESX/QUATRO/sens"
+username = "tester2"
+password = "4Dummies"
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
@@ -49,8 +51,8 @@ def on_message(client, userdata, msg):
     except Exception as e:
         print("Error:", e)
 
-client = mqtt.Client(client_id="hacktues-sleep")
-
+client = mqtt.Client()
+client.username_pw_set(username, password) 
 client.on_connect = on_connect
 client.on_message = on_message
 
