@@ -2,7 +2,8 @@ import paho.mqtt.client as mqtt
 import mysql.connector
 import os
 from dotenv import load_dotenv
-
+import random
+import time
 load_dotenv()
 
 mydb = mysql.connector.connect(
@@ -50,12 +51,35 @@ def on_message(client, userdata, msg):
     
     except Exception as e:
         print("Error:", e)
+print ("1")
+client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2,"ff",protocol=mqtt.MQTTv5)
+client.password=password;
+client.username=username;
 
-client = mqtt.Client()
+print ("2")
 client.username_pw_set(username, password) 
-client.on_connect = on_connect
-client.on_message = on_message
+print ("3")
+# client.on_connect = on_connect
+print ("4")
+# client.on_message = on_message
+print ("5")
+print(broker)
+print(port)
+print ("Status")
+print(client.connect(broker, port, 60))
+# client.loop_start();
+print(client.is_connected())
 
-client.connect(broker, port, 60)
+client.reconnect();
+client.subscribe(topic)
+print ("6")
+# client.loop_forever()
+print ("7")
 
-client.loop_forever()
+while (2):
+    client.loop()
+    print(client.is_connected())
+    print(client.reconnect());
+    time.sleep(0.01);
+
+
