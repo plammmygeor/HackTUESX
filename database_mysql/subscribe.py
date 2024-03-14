@@ -51,6 +51,6 @@ client = mqtt.Client(client_id=MQTT_CLIENT_ID)
 client.on_connect = on_connect
 client.on_message = on_message
 
-client.connect(MQTT_BROKER, 1883, 60)
+client.connect(MQTT_BROKER, 8884, 60)
 
 client.loop_forever()
