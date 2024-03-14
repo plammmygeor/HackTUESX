@@ -11,7 +11,6 @@ mydb = mysql.connector.connect(
 mycursor = mydb.cursor()
 mycursor.execute("CREATE DATABASE IF NOT EXISTS sleep")
 
-
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
     client.subscribe("your_topic")
