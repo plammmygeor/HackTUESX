@@ -16,6 +16,13 @@ mydb = mysql.connector.connect(
     auth_plugin=os.getenv("AUTH_PLUGIN")
 )
 
+# On recieve
+broker = "ohhhhhh-ny7qjv.a01.euc1.aws.hivemq.cloud"
+port = 8883
+topic = "HACKTUESX/QUATRO/sens"
+username = "tester2"
+password = "4Dummies"
+
 def insert_data_into_database(pulse):
     mysql = "INSERT INTO sleep_table (pulse_sensor) VALUES (%s);"
     value = (pulse, )
@@ -24,12 +31,6 @@ def insert_data_into_database(pulse):
     mydb.commit()
     mycursor.close()
     print("INSERT INTO sleep_table (pulse_sensor) VALUE (%s);" % pulse)
-
-broker = "ohhhhhh-ny7qjv.a01.euc1.aws.hivemq.cloud"
-port = 8883
-topic = "HACKTUESX/QUATRO/sens"
-username = "tester2"
-password = "4Dummies"
 
 def on_connect(client, userdata, flags, rc, properties=None):
     if rc == 0:
@@ -53,7 +54,7 @@ def on_message(client, userdata, msg):
         print("Error converting values to expected data types:", e)
     
     except Exception as e:
-        print("Error:", e)    
+        print("Error:", e)   
 
 client = paho.Client(client_id="", userdata=None, protocol=paho.MQTTv5)
 client.on_connect = on_connect
@@ -63,10 +64,7 @@ client.tls_set(tls_version=mqtt.client.ssl.PROTOCOL_TLS)
 
 client.username_pw_set(username, password)
 client.connect(broker, port, 60)
-
-# client.on_subscribe = on_subscribe
 client.on_message = on_message
-
 client.subscribe(topic, qos=2)
 
 client.loop_forever()

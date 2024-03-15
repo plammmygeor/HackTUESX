@@ -1,9 +1,17 @@
 import mysql.connector
+import paho.mqtt.client as paho
+from paho import mqtt
 import time
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
+
+broker = "ohhhhhh-ny7qjv.a01.euc1.aws.hivemq.cloud"
+port = 8883
+topic_sleep = "HACKTUESX/QUATRO/sleep"
+username = "tester2"
+password = "4Dummies"
 
 def check_last_entries():
     try:
@@ -37,9 +45,29 @@ def check_last_entries():
         print("Error while connecting to MySQL", error)
         return None
 
+def publish_sleep_value(sleep_value):
+    client = paho.Client(client_id="", userdata=None, protocol=paho.MQTTv5)
+    client.username_pw_set(username, password)
+    client.tls_set(tls_version=mqtt.client.ssl.PROTOCOL_TLS)
+
+    client.on_publish = on_publish  
+
+    try:
+        client.connect(broker, port, 60)
+        client.publish(topic_sleep, sleep_value)
+        client.disconnect()
+        print("Sleep value published successfully:", sleep_value)
+        
+    except Exception as e:
+        print("Error publishing sleep value:", e)
+
+def on_publish(client, userdata, mid):
+    print("Message published:" + str(mid))
+
 if __name__ == "__main__":
     while True:
         sleep_value = check_last_entries()
         if sleep_value is not None:
+            publish_sleep_value(sleep_value)
             print("Sleep variable:", sleep_value)
-        time.sleep(300) 
+        time.sleep(10)

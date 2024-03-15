@@ -16,7 +16,7 @@
             width: fit-content;
             margin: 0 auto;
             padding: 20px;
-            z-index: 2; /* Ensure headings are above canvas */
+            z-index: 2; 
         }
 
         /* Logo styling */
@@ -32,11 +32,12 @@
 
         .heading-letter {
             font-family: 'Nunito', sans-serif;
-            font-size: 80px;
+            font-size: 85px;
             color: #FFCCF2;
-            opacity: 0; 
+            opacity: 100; 
             font-weight: bold;
-            animation: fadeInDown 1s ease-in-out forwards; /* Apply animation */
+            z-index: 2;
+            animation: fadeDown 1s ease-in-out forwards; 
         }
 
         /* Animation frames */
@@ -147,7 +148,7 @@
     <!-- Heading and Logo Container -->
     <div class="container">
         <!-- Logo -->
-        <img src="/static/Logo.png" alt="Logo" class="logo">
+        <img src="/static/logo.png" alt="Logo" class="logo">
         
         <!-- Heading Container -->
         <div class="heading-container">
