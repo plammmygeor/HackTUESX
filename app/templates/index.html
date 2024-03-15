@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heading with Logo Above Pillow</title>
+    <title>DREAM SLEEP</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <style>
         /* Container styling */
@@ -20,16 +20,33 @@
 
         /* Logo styling */
         .logo {
-            width: 100px;
+            width: 150px;
             height: auto;
         }
 
         /* Heading styling */
-        h1 {
+        .heading-container {
+            display: flex;
+        }
+
+        .heading-letter {
             font-family: 'Bubblegum Sans', cursive;
-            font-size: 48px;
+            font-size: 80px;
             color: #FFCCF2;
-            z-index: 2; /* Ensure headings are above canvas */
+            opacity: 0; /* Initially hidden */
+            animation: fadeInDown 1s ease-in-out forwards; /* Apply animation */
+        }
+
+        /* Animation keyframes */
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Pillow styling */
@@ -37,17 +54,17 @@
             display: block;
             max-width: 100%;
             height: auto;
-            margin: 150px;
+            margin: 100px;
             padding-left: 150px;
             position: relative;
-            z-index: 2; /* Ensure headings are above canvas */
+            z-index: 2; 
         }
 
         /* Link styling */
         .link {
             position: absolute;
             top: 50%;
-            left: 0; /* Align to the right */
+            left: 0; 
             margin-left: 210px;
             transform: translateY(-50%);
             background-color: rgba(255, 255, 255, 0.7);
@@ -55,7 +72,7 @@
             text-decoration: none;
             color: #000;
             border-radius: 5px;
-            z-index: 2; /* Ensure headings are above canvas */
+            z-index: 2; 
         }
         
         /* Set body to cover the entire screen */
@@ -76,17 +93,29 @@
         }
 
     </style>
-
-
 </head>
+
 <body>
     <!-- Heading and Logo Container -->
     <div class="container">
         <!-- Logo -->
         <img src="/static/Logo.png" alt="Logo" class="logo">
         
-        <!-- Heading -->
-        <h1>Heading with Logo</h1>
+        <!-- Heading Container -->
+        <div class="heading-container">
+            <!-- Heading -->
+            <span class="heading-letter">D</span>
+            <span class="heading-letter">R</span>
+            <span class="heading-letter">E</span>
+            <span class="heading-letter">A</span>
+            <span class="heading-letter">M</span>
+            <span class="heading-letter">&nbsp;</span>
+            <span class="heading-letter">S</span>
+            <span class="heading-letter">L</span>
+            <span class="heading-letter">E</span>
+            <span class="heading-letter">E</span>
+            <span class="heading-letter">P</span>
+        </div>
     </div>
 
     <!-- Pillow Image -->
@@ -247,6 +276,15 @@
         function windowResized() {
         resizeCanvas(windowWidth, windowHeight)
         }
-    </script>        
+    </script>
+    
+    <script>
+        const letters = document.querySelectorAll('.heading-letter');
+
+        letters.forEach((letter, index) => {
+            letter.style.animationDelay = `${index * 100}ms`;
+        });
+    </script> 
+    
 </body>
 </html>            

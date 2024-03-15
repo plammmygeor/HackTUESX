@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Work Schedule</title>
+<script>
+  function saveTime(day) {
+    var startTime = document.getElementById(day + "_start").value;
+    var endTime = document.getElementById(day + "_end").value;
+    var isOff = document.getElementById(day + "_off").checked;
+
+    if (isOff) {
+      startTime = null;
+      endTime = null;
+    }
+
+    // Save the values to variables or do any other processing here
+    console.log(day + " start time: " + startTime);
+    console.log(day + " end time: " + endTime);
+  }
+</script>
+</head>
+<body>
+
+<h2>Weekly Work Schedule</h2>
+
+<form>
+  <table>
+    <tr>
+      <th>Day</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Not at Work?</th>
+      <th>Submit</th>
+    </tr>
+    <tr>
+      <td>Monday</td>
+      <td><input type="time" id="monday_start" name="monday_start" step="900"></td>
+      <td><input type="time" id="monday_end" name="monday_end" step="900"></td>
+      <td><input type="checkbox" id="monday_off" name="monday_off" onclick="saveTime('monday')"></td>
+      <td><input type="submit" value="Submit" onclick="saveTime('monday'); return false;"></td>
+    </tr>
+    <tr>
+      <td>Tuesday</td>
+      <td><input type="time" id="tuesday_start" name="tuesday_start" step="900"></td>
+      <td><input type="time" id="tuesday_end" name="tuesday_end" step="900"></td>
+      <td><input type="checkbox" id="tuesday_off" name="tuesday_off" onclick="saveTime('tuesday')"></td>
+      <td><input type="submit" value="Submit" onclick="saveTime('tuesday'); return false;"></td>
+    </tr>
+    <tr>
+      <td>Wednesday</td>
+      <td><input type="time" id="wednesday_start" name="wednesday_start" step="900"></td>
+      <td><input type="time" id="wednesday_end" name="wednesday_end" step="900"></td>
+      <td><input type="checkbox" id="wednesday_off" name="wednesday_off" onclick="saveTime('wednesday')"></td>
+      <td><input type="submit" value="Submit" onclick="saveTime('wednesday'); return false;"></td>
+    </tr>
+    <tr>
+      <td>Thursday</td>
+      <td><input type="time" id="thursday_start" name="thursday_start" step="900"></td>
+      <td><input type="time" id="thursday_end" name="thursday_end" step="900"></td>
+      <td><input type="checkbox" id="thursday_off" name="thursday_off" onclick="saveTime('thursday')"></td>
+      <td><input type="submit" value="Submit" onclick="saveTime('thursday'); return false;"></td>
+    </tr>
+    <tr>
+      <td>Friday</td>
+      <td><input type="time" id="friday_start" name="friday_start" step="900"></td>
+      <td><input type="time" id="friday_end" name="friday_end" step="900"></td>
+      <td><input type="checkbox" id="friday_off" name="friday_off" onclick="saveTime('friday')"></td>
+      <td><input type="submit" value="Submit" onclick="saveTime('friday'); return false;"></td>
+    </tr>
+    <tr>
+      <td>Saturday</td>
+      <td><input type="time" id="saturday_start" name="saturday_start" step="900"></td>
+      <td><input type="time" id="saturday_end" name="saturday_end" step="900"></td>
+      <td><input type="checkbox" id="saturday_off" name="saturday_off" onclick="saveTime('saturday')"></td>
+      <td><input type="submit" value="Submit" onclick="saveTime('saturday'); return false;"></td>
+    </tr>
+    <tr>
+      <td>Sunday</td>
+      <td><input type="time" id="sunday_start" name="sunday_start" step="900"></td>
+      <td><input type="time" id="sunday_end" name="sunday_end" step="900"></td>
+      <td><input type="checkbox" id="sunday_off" name="sunday_off" onclick="saveTime('sunday')"></td>
+      <td><input type="submit" value="Submit" onclick="saveTime('sunday'); return false;"></td>
+    </tr>
+  </table>
+</form>
+
+</body>
+</html>
