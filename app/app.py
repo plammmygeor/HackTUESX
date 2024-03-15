@@ -19,6 +19,7 @@ dbconnection = mysql.connector.connect(
     database=os.getenv("DATABASE"),
     auth_plugin=os.getenv("AUTH_PLUGIN")
 )
+
 # Function to fetch data from the database and generate plot
 def generate_plot():
     query = "SELECT timestamp, pulse_sensor FROM sleep_table"
