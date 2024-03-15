@@ -1,5 +1,5 @@
 import mysql.connector
-from datetime import datetime
+from datetime import timedelta
 import time
 import	os
 from dotenv import load_dotenv
@@ -28,13 +28,16 @@ def check_work_hours(cursor):
     result = cursor.fetchone()
     if result:
         start_time, end_time = result
-        if start_time <= current_time <= end_time:
+        start_datetime = datetime.combine(datetime.min, start_time)  # Convert time to datetime
+        end_datetime = datetime.combine(datetime.min, end_time)  # Convert time to datetime
+        current_datetime = datetime.combine(datetime.now().date(), current_time)  # Convert time to datetime
+        if start_datetime <= current_datetime <= end_datetime:
             return "nosleep"
         else:
             return "sleep"
     else:
         return "sleep"  # Assuming default behavior is to sleep if no work hours are found
-
+    
 def main():
     connection = connect_to_mysql()
     if connection:
