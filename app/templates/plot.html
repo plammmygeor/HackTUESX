@@ -17,6 +17,7 @@
         .container {
             display: flex;
             flex-direction: row; /* Changed to row to display side by side */
+            position: relative; /* Relative positioning for the container */
         }
 
         .plot-container {
@@ -50,8 +51,8 @@
             border-radius: 5px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
             width: 400px; /* Added width */
-            height: 300px;
             margin-right: 20px; /* Added margin to separate the elements */
+            position: relative; /* Relative positioning for the container */
         }
         .bubble-heading{
             font-size: 24px;
@@ -63,6 +64,13 @@
             width: 380px; /* Added width */
             border-top-left-radius: 5px; /* Added to match the border radius */
             border-top-right-radius: 5px; /* Added to match the border radius */
+        }
+        .bubble-image {
+            position: absolute;
+            bottom: -70px;
+            left: -70px;
+            width: 300px; /* Adjusted width to be triple as bigger */
+            border-radius: 5px;
         }
         a {
             display: block;
@@ -88,13 +96,13 @@
         <div class="bubble-container">
             <h1 class="bubble-heading">Analysis</h1>
             <p>This is a bubble with text.</p>
+            <!-- Insert the picture at the bottom left corner of the bubble container -->
+            <img class="bubble-image" src="/static/sully_research.png" alt="Your Picture">
         </div>
         <div class="plot-container">
             <h1 class="plot-heading">Plot</h1>
             <img src="data:image/png;base64,{{ plot_url }}" alt="Pulse Change Over Time">
         </div>
     </div>
-    <!-- Insert the picture below -->
-    <img src="/static/sully_research.png" alt="Your Picture">
 </body>
 </html>
