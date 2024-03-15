@@ -3,10 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flask App</title>
+    <title>Heading with Logo Above Pillow</title>
+    <style>
+        /* Container styling */
+        .container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            margin: 0 auto;
+            padding: 20px;
+        }
+    
+        /* Logo styling */
+        .logo {
+            width: 100px;
+            height: auto;
+        }
+    
+        /* Heading styling */
+        h1 {
+            font-family: 'Bubblegum Sans', cursive;
+            font-size: 48px;
+            color: #A63290;
+        }
+    
+        /* Pillow styling */
+        .pillow {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 150px;
+            padding-left: 150px;
+            position: relative;
+        }
+    
+        /* Link styling */
+        .link {
+            position: absolute;
+            top: 50%;
+            left: 0; /* Align to the right */
+            margin-left: 210px;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #000;
+            border-radius: 5px;
+        }
+    </style>
+    
+    
+    
 </head>
 <body>
-    <h1>Flask App</h1>
-    <a href="/plot"><button>View Plot</button></a>
+    <!-- Heading and Logo Container -->
+    <div class="container">
+        <!-- Logo -->
+        <img src="/static/Logo.png" alt="Logo" class="logo">
+        
+        <!-- Heading -->
+        <h1>Heading with Logo</h1>
+    </div>
+
+    <!-- Pillow Image -->
+    <div class="pillow">
+        <img src="/static/pillow.jpg" alt="Pillow" class="pillow-image">
+        <!-- Link -->
+        <a href="#" class="link">Let's sleep!</a>
+    </div>
 </body>
 </html>
