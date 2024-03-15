@@ -54,9 +54,10 @@ def publish_sleep_value(sleep_value):
 
     try:
         client.connect(broker, port, 60)
+        client.subscribe(topic_sleep, qos=2)
         client.publish(topic_sleep, sleep_value)
-        client.disconnect()
         print("Sleep value published successfully:", sleep_value)
+        client.loop_forever()
         
     except Exception as e:
         print("Error publishing sleep value:", e)
