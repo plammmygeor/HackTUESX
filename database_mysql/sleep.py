@@ -47,28 +47,27 @@ def check_last_entries():
 
 def publish_sleep_value(sleep_value):
     client = paho.Client(client_id="", userdata=None, protocol=paho.MQTTv5)
-    client.username_pw_set(username, password)
-    client.tls_set(tls_version=mqtt.client.ssl.PROTOCOL_TLS)
+    client.tls_set(tls_version=mqtt.client.ssl.PROTOCOL_TLS) 
+    client.username_pw_set(username, password) 
 
-    client.on_publish = on_publish  
-
+    client.on_publish = on_publish
+    
     try:
         client.connect(broker, port, 60)
         client.subscribe(topic_sleep, qos=2)
         client.publish(topic_sleep, sleep_value)
         print("Sleep value published successfully:", sleep_value)
-        client.loop_forever()
-        
+        client.loop()  # Process incoming callbacks and return
     except Exception as e:
         print("Error publishing sleep value:", e)
+        
 
 def on_publish(client, userdata, mid):
-    print("Message published:" + str(mid))
+    print("Message published:", mid)
 
 if __name__ == "__main__":
     while True:
         sleep_value = check_last_entries()
         if sleep_value is not None:
             publish_sleep_value(sleep_value)
-            print("Sleep variable:", sleep_value)
-        time.sleep(10)
+        time.sleep(5)
