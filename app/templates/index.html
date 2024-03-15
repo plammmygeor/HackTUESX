@@ -25,12 +25,16 @@
         }
 
         /* Heading styling */
-        h1 {
+        .heading-container {
+            display: flex;
+        }
+
+        .heading-letter {
             font-family: 'Bubblegum Sans', cursive;
             font-size: 80px;
             color: #FFCCF2;
-            z-index: 2; /* Ensure headings are above canvas */
-            animation: fadeInDown 1s ease-in-out; /* Apply animation */
+            opacity: 0; /* Initially hidden */
+            animation: fadeInDown 1s ease-in-out forwards; /* Apply animation */
         }
 
         /* Animation keyframes */
@@ -53,14 +57,14 @@
             margin: 100px;
             padding-left: 150px;
             position: relative;
-            z-index: 2; /* Ensure headings are above canvas */
+            z-index: 2; 
         }
 
         /* Link styling */
         .link {
             position: absolute;
             top: 50%;
-            left: 0; /* Align to the right */
+            left: 0; 
             margin-left: 210px;
             transform: translateY(-50%);
             background-color: rgba(255, 255, 255, 0.7);
@@ -68,7 +72,7 @@
             text-decoration: none;
             color: #000;
             border-radius: 5px;
-            z-index: 2; /* Ensure headings are above canvas */
+            z-index: 2; 
         }
         
         /* Set body to cover the entire screen */
@@ -89,17 +93,29 @@
         }
 
     </style>
-
-
 </head>
+
 <body>
     <!-- Heading and Logo Container -->
     <div class="container">
         <!-- Logo -->
         <img src="/static/Logo.png" alt="Logo" class="logo">
         
-        <!-- Heading -->
-        <h1>DREAM SLEEP</h1>
+        <!-- Heading Container -->
+        <div class="heading-container">
+            <!-- Heading -->
+            <span class="heading-letter">D</span>
+            <span class="heading-letter">R</span>
+            <span class="heading-letter">E</span>
+            <span class="heading-letter">A</span>
+            <span class="heading-letter">M</span>
+            <span class="heading-letter">&nbsp;</span>
+            <span class="heading-letter">S</span>
+            <span class="heading-letter">L</span>
+            <span class="heading-letter">E</span>
+            <span class="heading-letter">E</span>
+            <span class="heading-letter">P</span>
+        </div>
     </div>
 
     <!-- Pillow Image -->
@@ -260,6 +276,15 @@
         function windowResized() {
         resizeCanvas(windowWidth, windowHeight)
         }
-    </script>        
+    </script>
+    
+    <script>
+        const letters = document.querySelectorAll('.heading-letter');
+
+        letters.forEach((letter, index) => {
+            letter.style.animationDelay = `${index * 100}ms`;
+        });
+    </script> 
+    
 </body>
 </html>            
