@@ -3,22 +3,49 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito&display=swap">
   <title>Smart Home Control</title>
   <style>
     body {
       font-size: 30px;
       text-align: center;
+      font-family: 'Nunito', sans-serif; /* Adding Nunito font */
+      background-color: #021F3C; /* Updated background color */
+      color: #77B4DC; /* Pink text color */
+    }
+    h1 {
+      font-size: 48px; /* Heading size */
+      margin-bottom: 150px; /* Add margin below heading */
+      color: #FFCCF2; 
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: left; /* Align text to the left within the container */
+      position: relative; /* Add position relative to contain absolutely positioned image */
+    }
+    .container img {
+      position: absolute;
+      left: 20px; /* Adjust left position to move the image more to the left */
+      top: -100px; /* Move the image up by 50px */
+      width: 200px; /* Increase image width */
+      height: auto; /* Maintain aspect ratio */
+      z-index: 1; /* Ensure the image is above other content */
     }
     .toggle-container {
-      display: inline-block;
-      margin: 30px;
+      display: block; /* Display toggles as block elements */
+      margin-bottom: 50px;
+      margin-left: 190px; /* Adjust left margin to accommodate the image width */
+      text-align: center; /* Align toggle text to the left */
     }
     .toggle-label {
       margin-bottom: 10px;
+      margin-right: 20px;
     }
     .toggle-switch {
       position: relative;
       display: inline-block;
+      margin-bottom: 30px;
       width: 100px;
       height: 60px;
     }
@@ -50,7 +77,7 @@
       border-radius: 50%;
     }
     input:checked + .toggle-slider {
-      background-color: #2196F3;
+      background-color: #FFCCF2;
     }
     input:checked + .toggle-slider:before {
       left: calc(100% - 55px); /* Move the slider to the right when checked */
@@ -59,26 +86,29 @@
 </head>
 <body>
   <h1>Smart Home Control</h1>
-  <div class="toggle-container">
-    <label class="toggle-label">TV</label>
-    <label class="toggle-switch">
-      <input id="tv" type="checkbox" onclick="updateState()">
-      <span class="toggle-slider"></span>
-    </label>
-  </div>
-  <div class="toggle-container">
-    <label class="toggle-label">Lights</label>
-    <label class="toggle-switch">
-      <input id="lights" type="checkbox" onclick="updateState()">
-      <span class="toggle-slider"></span>
-    </label>
-  </div>
-  <div class="toggle-container">
-    <label class="toggle-label">Blinds</label>
-    <label class="toggle-switch">
-      <input id="blinds" type="checkbox" onclick="updateState()">
-      <span class="toggle-slider"></span>
-    </label>
+  <div class="container">
+    <img src="/static/sully_lamp.png" alt="Left Image">
+    <div class="toggle-container">
+      <label class="toggle-label">TV</label>
+      <label class="toggle-switch">
+        <input id="tv" type="checkbox" onclick="updateState()">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+    <div class="toggle-container">
+      <label class="toggle-label">Lights</label>
+      <label class="toggle-switch">
+        <input id="lights" type="checkbox" onclick="updateState()">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+    <div class="toggle-container">
+      <label class="toggle-label">Blinds</label>
+      <label class="toggle-switch">
+        <input id="blinds" type="checkbox" onclick="updateState()">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
   </div>
   
   <p id="output">Status: all off</p>
@@ -97,33 +127,15 @@
 
       let status;
       switch(state) {
-        case 0:
-          status = "all off";
-          break;
-        case 2:
-          status = "lamp on";
-          break;
-        case 1:
-          status = "tv on";
-          break;
-        case 4:
-          status = "blinds on";
-          break;
-        case 3:
-          status = "lamp and tv on";
-          break;
-        case 6:
-          status = "lamp and blinds on";
-          break;
-        case 5:
-          status = "tv and blinds on";
-          break;
-        case 7:
-          status = "all on";
-          break;
-        default:
-          status = "unknown";
-          break;
+        case 0: status = "all off"; break;
+        case 2: status = "lamp on"; break;
+        case 1: status = "tv on"; break;
+        case 4: status = "blinds on"; break;
+        case 3: status = "lamp and tv on"; break;
+        case 6: status = "lamp and blinds on"; break;
+        case 5: status = "tv and blinds on"; break;
+        case 7: status = "all on"; break;
+        default: status = "unknown"; break;
       }
 
       document.getElementById("output").textContent = "Status: " + status;
