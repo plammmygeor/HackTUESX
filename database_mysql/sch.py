@@ -1,24 +1,18 @@
 import mysql.connector
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time as dt_time
 import time as time_module
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
-def connect_to_mysql():
-    try:
-        connection = mysql.connector.connect(
-            host=os.getenv("HOST"),
-            user=os.getenv("USER"),
-            password=os.getenv("PASSWORD"),
-            database=os.getenv("DATABASE"),
-            auth_plugin=os.getenv("AUTH_PLUGIN")
-        )
-        return connection
-    except mysql.connector.Error as error:
-        print("Error while connecting to MySQL", error)
-        return None
+connection = mysql.connector.connect(
+    host=os.getenv("HOST"),
+    user=os.getenv("USER"),
+    password=os.getenv("PASSWORD"),
+    database=os.getenv("DATABASE"),
+    auth_plugin=os.getenv("AUTH_PLUGIN")
+)
 
 def check_work_hours(cursor):
     current_time = datetime.now().time()
@@ -28,19 +22,16 @@ def check_work_hours(cursor):
     result = cursor.fetchone()
     if result:
         start_time, end_time = result
-        start_time = start_time.total_seconds() // 3600, (start_time.seconds // 60) % 60, start_time.seconds % 60
-        end_time = end_time.total_seconds() // 3600, (end_time.seconds // 60) % 60, end_time.seconds % 60
-        start_time = datetime.min + timedelta(hours=start_time[0], minutes=start_time[1], seconds=start_time[2])
-        end_time = datetime.min + timedelta(hours=end_time[0], minutes=end_time[1], seconds=end_time[2])
-        if start_time <= current_time <= end_time:
-            return "nosleep"
-        else:
-            return "sleep"
-    else:
-        return "sleep"
+        if start_time is not None and end_time is not None:
+            start_time = (datetime.min + start_time).time()  # Convert to time object
+            end_time = (datetime.min + end_time).time()      # Convert to time object
+            start_datetime = datetime.combine(datetime.now().date(), start_time)
+            end_datetime = datetime.combine(datetime.now().date(), end_time)
+            if start_datetime <= datetime.now() <= end_datetime:
+                return "nosleep"
+    return "sleep"
 
 def main():
-    connection = connect_to_mysql()
     if connection:
         cursor = connection.cursor()
         while True:
