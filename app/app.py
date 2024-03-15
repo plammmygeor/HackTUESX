@@ -4,22 +4,25 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import io
 import base64
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
 # Connect to MySQL database
-db_connection = mysql.connector.connect(
-    host="127.0.0.1",
-    user="root",
-    password="root",
-    database="sleep",
-    auth_plugin='mysql_native_password'
+dbconnection = mysql.connector.connect(
+    host=os.getenv("HOST"),
+    user=os.getenv("USER"),
+    password=os.getenv("PASSWORD"),
+    database=os.getenv("DATABASE"),
+    auth_plugin=os.getenv("AUTH_PLUGIN")
 )
-
 # Function to fetch data from the database and generate plot
 def generate_plot():
-    query = "SELECT timestamp, pulse_sensor FROM sleep"
-    data = pd.read_sql(query, con=db_connection)
+    query = "SELECT timestamp, pulse_sensor FROM sleep_table"
+    data = pd.read_sql(query, con=dbconnection)
 
     # Convert timestamp column to datetime format
     data['timestamp'] = pd.to_datetime(data['timestamp'])
@@ -28,7 +31,7 @@ def generate_plot():
     data.set_index('timestamp', inplace=True)
 
     # Resample the data to visualize changes over time
-    resampled_data = data.resample('D').mean()  # Change 'D' to 'H', 'M', etc. for different time resolutions
+    resampled_data = data.resample('S').mean()  # Change 'D' to 'H', 'M', etc. for different time resolutions
 
     # Plot the data
     plt.figure(figsize=(10, 6))
