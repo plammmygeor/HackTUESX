@@ -4,13 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .plot-container {
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .plot-heading {
+            font-size: 24px;
+            margin: 0;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+        }
+        
+        img {
+            max-width: 100%;
+            border-radius: 5px;
+            display: block;
+        }
+        
+        .bubble {
+            position: absolute;
+            top: calc(100% + 20px);
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            color: #007bff;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+        
+        a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
-    <h1>Plot</h1>
-    <img src="data:image/png;base64,{{ plot_url }}" alt="Pulse Change Over Time">
-    <div style="position: absolute; top: 100px; left: 100px; background-color: yellow; padding: 10px;">
-        <p>This is a bubble with text.</p>
+    <div class="container">
+        <div class="plot-container">
+            <h1 class="plot-heading">Plot</h1>
+            <img src="data:image/png;base64,{{ plot_url }}" alt="Pulse Change Over Time">
+        </div>
+        <div class="bubble">
+            <p>This is a bubble with text.</p>
+        </div>
     </div>
-    <a href="/"><button>Go Back</button></a>
+    <a href="/">Go Back</a>
 </body>
 </html>
