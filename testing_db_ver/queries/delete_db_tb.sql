@@ -1,0 +1,2 @@
+DELETE TABLE sleep_table;
+DELETE DATABASE sleep;

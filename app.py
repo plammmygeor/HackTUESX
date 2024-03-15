@@ -4,16 +4,20 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import io
 import base64
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
 #Connect to MySQL database
 dbconnection = mysql.connector.connect(
-    host="127.0.0.1",
-    user="root",
-    password="root",
-    database="sleep",
-    auth_plugin='mysql_native_password'
+    host=os.getenv("HOST"),
+    user=os.getenv("USER"),
+    password=os.getenv("PASSWORD"),
+    database=os.getenv("DATABASE"),
+    auth_plugin=os.getenv("AUTH_PLUGIN")
 )
 
 #Function to fetch data from the database and generate plot
