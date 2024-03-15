@@ -16,8 +16,12 @@
         
         .container {
             display: flex;
+<<<<<<< Updated upstream
             flex-direction: row; /* Changed to row to display side by side */
             position: relative; /* Relative positioning for the container */
+=======
+            flex-direction: row; 
+>>>>>>> Stashed changes
         }
 
         .plot-container {
@@ -39,12 +43,7 @@
             border-top-left-radius: 5px;
             border-top-right-radius: 5px;
         }
-        
-        img {
-            max-width: 100%;
-            border-radius: 5px;
-            display: block;
-        }
+
         .bubble-container {
             background-color: #f0f0f0; 
             color: #000; /* Changed text color to black */
@@ -89,6 +88,14 @@
             background-color: #77B4DC;
             color: #fff;
         }
+
+        img {
+            max-width: 100%;
+            border-radius: 5px;
+            display: block;
+            margin-button: 50px;
+        }
+
     </style>
 </head>
 <body>
@@ -103,6 +110,11 @@
             <h1 class="plot-heading">Plot</h1>
             <img src="data:image/png;base64,{{ plot_url }}" alt="Pulse Change Over Time">
         </div>
+        <img src="/static/sully_research.png" alt="Your Picture">
     </div>
+<<<<<<< Updated upstream
+=======
+    <!-- Insert the picture below -->
+>>>>>>> Stashed changes
 </body>
 </html>

@@ -68,11 +68,6 @@ def plot():
 def sch():
     return render_template('sch.html')
 
-# Route to display the schedule page
-@app.route('/dashboard')
-def dashboard():
-    return render_template('dashboard.html')
-
 # Route to handle AJAX request and update work hours in the database
 @app.route('/update_work_hours', methods=['POST'])
 def update_work_hours():
