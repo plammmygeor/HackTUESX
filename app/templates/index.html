@@ -21,7 +21,7 @@
 
         /* Logo styling */
         .logo {
-            width: 150px;
+            width: 200px;
             height: auto;
         }
 
@@ -34,7 +34,7 @@
             font-family: 'Nunito', sans-serif;
             font-size: 80px;
             color: #FFCCF2;
-            opacity: 0; /* Initially hidden */
+            opacity: 0; 
             animation: fadeInDown 1s ease-in-out forwards; /* Apply animation */
         }
 
@@ -53,6 +53,7 @@
         /* Pillow styling */
         .pillow {
             display: inline-block;
+<<<<<<< Updated upstream
             max-width: 200%;
             height: 150%;
             margin: 90px;
@@ -79,9 +80,25 @@
             height: 150%;
             margin: 90px;
             padding-left: 10px;
+=======
+            width: 40%;
+            height: auto;
+            margin: 100px 20px;
+>>>>>>> Stashed changes
             position: relative;
-            z-index: 2; 
+            z-index: 2;
         }
+        
+        /* Pillow2 styling */
+        .pillow2 {
+            display: inline-block;
+            width: 40%;
+            height: auto;
+            margin: 100px auto;
+            position: relative;
+            z-index: 2;
+        }
+        
 
         /* Link styling */
         .link {
@@ -163,6 +180,13 @@
         <img src="/static/pillow.png" alt="Pillow3" class="pillow3-image">
         <!-- Link -->
         <a href="/plot" class="link">Home</a>
+    </div>
+
+    <!-- Pillow Image 2 -->
+    <div class="pillow2">
+        <img src="/static/pillow.png" alt="Pillow2" class="pillow2-image">
+        <!-- Link -->
+        <a href="/plot" class="link">Shedule!</a>
     </div>
 
     <script>
