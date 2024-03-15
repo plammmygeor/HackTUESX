@@ -1,14 +1,19 @@
 import mysql.connector
 from datetime import datetime
 import time
+import	os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def connect_to_mysql():
     try:
         connection = mysql.connector.connect(
-            host="your_host",
-            user="your_username",
-            password="your_password",
-            database="your_database"
+            host=os.getenv("HOST"),
+            user=os.getenv("USER"),
+            password=os.getenv("PASSWORD"),
+            database=os.getenv("DATABASE"),
+            auth_plugin=os.getenv("AUTH_PLUGIN")
         )
         return connection
     except mysql.connector.Error as error:
