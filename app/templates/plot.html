@@ -6,33 +6,35 @@
     <title>Plot</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Bubblegum Sans', cursive;
             background-color: #f0f0f0;
-            margin: 0;
+            margin: 40px;
             padding: 0;
         }
         
         .container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex-direction: row; /* Changed to row to display side by side */
         }
 
         .plot-container {
-            margin-bottom: 20px;
+            flex: 1; /* Added to take remaining space */
             position: relative;
             overflow: hidden;
             border-radius: 5px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            margin-right: 0px; /* Added margin to separate the elements */
         }
 
         .plot-heading {
             font-size: 24px;
             margin: 0;
             padding: 10px;
-            background-color: #007bff;
+            background-color: #77B4DC;
             color: #fff;
             text-align: center;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
         }
         
         img {
@@ -40,43 +42,53 @@
             border-radius: 5px;
             display: block;
         }
-        
-        .bubble {
-            position: absolute;
-            top: calc(100% + 20px);
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #fff;
-            padding: 10px;
+        .bubble-container {
+            background-color: #f0f0f0; 
+            color: #000; /* Changed text color to black */
             border-radius: 5px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            width: 400px; /* Added width */
+            margin-right: 20px; /* Added margin to separate the elements */
         }
-
+        .bubble-heading{
+            font-size: 24px;
+            margin: 0; /* Removed top margin */
+            padding: 10px;
+            background-color: #FFCCF2;
+            color: #fff;
+            text-align: center;
+            width: 380px; /* Added width */
+            border-top-left-radius: 5px; /* Added to match the border radius */
+            border-top-right-radius: 5px; /* Added to match the border radius */
+        }
         a {
             display: block;
+            width: 100px;
             text-align: center;
             text-decoration: none;
-            color: #007bff;
-            border: 1px solid #007bff;
+            color: #77B4DC;
+            border: 1px solid #77B4DC;
             border-radius: 5px;
             padding: 10px 20px;
+            margin-top: 20px;
             transition: background-color 0.3s ease;
         }
         
         a:hover {
-            background-color: #007bff;
+            background-color: #77B4DC;
             color: #fff;
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="bubble-container">
+            <h1 class="bubble-heading">Analyzis</h1>
+            <p>This is a bubble with text.</p>
+        </div>
         <div class="plot-container">
             <h1 class="plot-heading">Plot</h1>
             <img src="data:image/png;base64,{{ plot_url }}" alt="Pulse Change Over Time">
-        </div>
-        <div class="bubble">
-            <p>This is a bubble with text.</p>
         </div>
     </div>
     <a href="/">Go Back</a>
