@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import mysql.connector
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -61,6 +61,26 @@ def index():
 def plot():
     plot_url = generate_plot()
     return render_template('plot.html', plot_url=plot_url)
+
+# Route to handle AJAX request and update work hours in the database
+@app.route('/update_work_hours', methods=['POST'])
+def update_work_hours():
+    
+    global connection
+    
+    data = request.json
+    day = data.get('day')
+    start_time = data.get('start_time')
+    end_time = data.get('end_time')
+
+    # Perform database update here
+    cursor = connection.cursor()
+    query = "UPDATE work_hours SET start_time = %s, end_time = %s WHERE day = %s"
+    cursor.execute(query, (start_time, end_time, day))
+    connection.commit()
+    cursor.close()
+
+    return jsonify({"message": "Work hours updated successfully"})
 
 if __name__ == '__main__':
     app.run(debug=True)
