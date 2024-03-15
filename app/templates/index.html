@@ -52,32 +52,55 @@
 
         /* Pillow styling */
         .pillow {
-            display: block;
-            max-width: 100%;
-            height: auto;
-            margin: 100px;
-            padding-left: 150px;
+            display: inline-block;
+            max-width: 200%;
+            height: 150%;
+            margin: 90px;
+            padding-left: 50px;
+            position: relative;
+            z-index: 2; 
+        }
+        
+        /* Pillow2 styling */
+        .pillow2 {
+            display: inline-block;
+            max-width: 200%;
+            height: 150%;
+            margin: 90px;
+            padding-left: 10px;
+            position: relative;
+            z-index: 2; 
+        }
+
+        /* Pillow2 styling */
+        .pillow3 {
+            display: inline-block;
+            max-width: 200%;
+            height: 150%;
+            margin: 90px;
+            padding-left: 10px;
             position: relative;
             z-index: 2; 
         }
 
         /* Link styling */
-    .link {
-    position: absolute;
-    top: 50%;
-    left: 0; 
-    font-size: 24px;
-    margin-left: 190px;
-    transform: translateY(-50%);
-    /* Remove background and border */
-    background-color: transparent;
-    border: none;
-    padding: 10px 20px;
-    font-family: 'Nunito', sans-serif;
-    text-decoration: none;
-    color: #000;
-    z-index: 2; 
-}
+        .link {
+        position: absolute;
+        top: 50%;
+        left: 0; 
+        font-size: 24px;
+        margin-left: 80px;
+        transform: translateY(-50%);
+        
+        /* Remove background and border */
+        background-color: transparent;
+        border: none;
+        padding: 10px 20px;
+        font-family: 'Nunito', sans-serif;
+        text-decoration: none;
+        color: #000;
+        z-index: 2; 
+        }
         
         /* Set body to cover the entire screen */
         body {
@@ -126,7 +149,20 @@
     <div class="pillow">
         <img src="/static/pillow.png" alt="Pillow" class="pillow-image">
         <!-- Link -->
-        <a href="/plot" class="link">Let's sleep!</a>
+        <a href="/plot" class="link">Sleep</a>
+    </div>
+
+    <!-- Pillow2 Image -->
+    <div class="pillow2">
+        <img src="/static/pillow.png" alt="Pillow2" class="pillow2-image">
+        <!-- Link -->
+        <a href="/plot" class="link">Schedule</a>
+    </div>
+
+    <div class="pillow3">
+        <img src="/static/pillow.png" alt="Pillow3" class="pillow3-image">
+        <!-- Link -->
+        <a href="/plot" class="link">Home</a>
     </div>
 
     <script>
