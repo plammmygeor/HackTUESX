@@ -35,6 +35,7 @@
             font-size: 80px;
             color: #FFCCF2;
             opacity: 0; 
+            font-weight: bold;
             animation: fadeInDown 1s ease-in-out forwards; /* Apply animation */
         }
 
@@ -50,6 +51,18 @@
             }
         }
 
+        @keyframes juggle {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
         /* Pillow styling */
         .pillow {
             display: inline-block;
@@ -59,7 +72,8 @@
             margin-top: 130px;
             padding-left: 1px;
             position: relative;
-            z-index: 2; 
+            z-index: 2;
+            animation: juggle 2s infinite;  
         }
         
         /* Pillow2 styling */
@@ -72,6 +86,7 @@
             padding-left: 1px;
             position: relative;
             z-index: 2; 
+            animation: juggle 2s infinite; 
         }
 
         /* Pillow2 styling */
@@ -83,6 +98,7 @@
             padding-left: 10px;
             position: relative;
             z-index: 2;
+            animation: juggle 2s infinite; 
         }
         
 
@@ -90,10 +106,12 @@
         .link {
         position: absolute;
         top: 50%;
-        left: 0; 
-        font-size: 24px;
+        left: 15%; 
+        font-size: 30px;
         margin-left: 70px;
         transform: translateY(-50%);
+        font-weight: bold; 
+        font-family: 'Nunito', sans-serif;
         
         /* Remove background and border */
         background-color: transparent;
@@ -105,14 +123,14 @@
         z-index: 2; 
         }
         
-        /* Set body to cover the entire screen */
+        /* Set body for screen */
         body {
             margin: 0;
             padding: 0;
             overflow: hidden;
         }
 
-        /* Make canvas full screen */
+        /* full screen */
         canvas {
             position: absolute;
             top: 0;
