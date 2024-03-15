@@ -62,23 +62,96 @@
   <div class="toggle-container">
     <label class="toggle-label">TV</label>
     <label class="toggle-switch">
-      <input type="checkbox">
+      <input id="tv" type="checkbox" onclick="updateState()">
       <span class="toggle-slider"></span>
     </label>
   </div>
   <div class="toggle-container">
     <label class="toggle-label">Lights</label>
     <label class="toggle-switch">
-      <input type="checkbox">
+      <input id="lights" type="checkbox" onclick="updateState()">
       <span class="toggle-slider"></span>
     </label>
   </div>
   <div class="toggle-container">
     <label class="toggle-label">Blinds</label>
     <label class="toggle-switch">
-      <input type="checkbox">
+      <input id="blinds" type="checkbox" onclick="updateState()">
       <span class="toggle-slider"></span>
     </label>
   </div>
+  
+  <p id="output">Status: all off</p>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      loadState();
+    });
+
+    function updateState() {
+      const tv = document.querySelector('#tv').checked ? 1 : 0;
+      const lights = document.querySelector('#lights').checked ? 2 : 0;
+      const blinds = document.querySelector('#blinds').checked ? 4 : 0;
+
+      const state = tv + lights + blinds;
+
+      let status;
+      switch(state) {
+        case 0:
+          status = "all off";
+          break;
+        case 2:
+          status = "lamp on";
+          break;
+        case 1:
+          status = "tv on";
+          break;
+        case 4:
+          status = "blinds on";
+          break;
+        case 3:
+          status = "lamp and tv on";
+          break;
+        case 6:
+          status = "lamp and blinds on";
+          break;
+        case 5:
+          status = "tv and blinds on";
+          break;
+        case 7:
+          status = "all on";
+          break;
+        default:
+          status = "unknown";
+          break;
+      }
+
+      document.getElementById("output").textContent = "Status: " + status;
+      saveState();
+    }
+
+    function saveState() {
+      const tvState = document.querySelector('#tv').checked;
+      const lightsState = document.querySelector('#lights').checked;
+      const blindsState = document.querySelector('#blinds').checked;
+
+      localStorage.setItem('tvState', tvState);
+      localStorage.setItem('lightsState', lightsState);
+      localStorage.setItem('blindsState', blindsState);
+    }
+
+    function loadState() {
+      const tvState = localStorage.getItem('tvState') === 'true';
+      const lightsState = localStorage.getItem('lightsState') === 'true';
+      const blindsState = localStorage.getItem('blindsState') === 'true';
+
+      document.querySelector('#tv').checked = tvState;
+      document.querySelector('#lights').checked = lightsState;
+      document.querySelector('#blinds').checked = blindsState;
+
+      updateState();
+    }
+
+  </script>
 </body>
 </html>
