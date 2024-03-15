@@ -1,6 +1,6 @@
 import mysql.connector
 from datetime import datetime, timedelta
-import time as time_module  # Rename the imported time module
+import time as time_module
 import os
 from dotenv import load_dotenv
 
@@ -28,15 +28,16 @@ def check_work_hours(cursor):
     result = cursor.fetchone()
     if result:
         start_time, end_time = result
-        start_time = datetime.combine(datetime.min, start_time).time()  # Convert time to datetime
-        end_time = datetime.combine(datetime.min, end_time).time()  # Convert time to datetime
-        current_datetime = datetime.combine(datetime.now().date(), current_time)  # Convert time to datetime
-        if start_time <= current_datetime.time() <= end_time:
+        start_time = start_time.total_seconds() // 3600, (start_time.seconds // 60) % 60, start_time.seconds % 60
+        end_time = end_time.total_seconds() // 3600, (end_time.seconds // 60) % 60, end_time.seconds % 60
+        start_time = datetime.min + timedelta(hours=start_time[0], minutes=start_time[1], seconds=start_time[2])
+        end_time = datetime.min + timedelta(hours=end_time[0], minutes=end_time[1], seconds=end_time[2])
+        if start_time <= current_time <= end_time:
             return "nosleep"
         else:
             return "sleep"
     else:
-        return "sleep"  # Assuming default behavior is to sleep if no work hours are found
+        return "sleep"
 
 def main():
     connection = connect_to_mysql()
@@ -45,7 +46,7 @@ def main():
         while True:
             exit_variable = check_work_hours(cursor)
             print("Exit variable:", exit_variable)
-            time_module.sleep(60)  # Use the renamed time module
+            time_module.sleep(60)
 
 if __name__ == "__main__":
     main()
