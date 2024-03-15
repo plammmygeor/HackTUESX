@@ -23,7 +23,7 @@ def check_last_entries():
         rows = cursor.fetchall()
 
         # all entries < 80
-        if all(row[1] < 80 for row in rows):
+        if all(row[2] < 80 for row in rows):
             sleep = 1
         else:
             sleep = 0
