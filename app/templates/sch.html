@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Weekly Work Schedule</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   function saveTime(day) {
     var startTime = document.getElementById(day + "_start").value;
@@ -14,7 +15,23 @@
       startTime = null;
       endTime = null;
     }
-
+    // Send an AJAX request to update the database
+    $.ajax({
+      url: "/update_work_hours",
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify({
+        day: day,
+        start_time: startTime,
+        end_time: endTime
+      }),
+      success: function(response) {
+        console.log("Data updated successfully:", response);
+      },
+      error: function(xhr, status, error) {
+        console.error("Error updating data:", error);
+      }
+    });
     // Save the values to variables or do any other processing here
     console.log(day + " start time: " + startTime);
     console.log(day + " end time: " + endTime);
