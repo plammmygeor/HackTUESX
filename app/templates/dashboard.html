@@ -27,7 +27,7 @@
     .container img {
       position: absolute;
       left: 20px; /* Adjust left position to move the image more to the left */
-      top: -100px; /* Move the image up by 50px */
+      top: -120px;
       width: 200px; /* Increase image width */
       height: auto; /* Maintain aspect ratio */
       z-index: 1; /* Ensure the image is above other content */
@@ -87,7 +87,7 @@
 <body>
   <h1>Smart Home Control</h1>
   <div class="container">
-    <img src="/static/sully_lamp.png" alt="Left Image">
+    <img id="image" src="/static/sully_lamp.png" alt="Left Image">
     <div class="toggle-container">
       <label class="toggle-label">TV</label>
       <label class="toggle-switch">
@@ -139,6 +139,14 @@
       }
 
       document.getElementById("output").textContent = "Status: " + status;
+      
+      // Change the image when lights are turned on
+      if (lights === 2) {
+        document.getElementById("image").src = "/static/sully_lamp_light.png"; // Change the src attribute to the new image path
+      } else {
+        document.getElementById("image").src = "/static/sully_lamp.png"; // Revert to the original image when lights are turned off
+      }
+
       saveState();
     }
 
