@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito&display=swap">
     <title>DREAM SLEEP</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <style>
@@ -30,7 +31,7 @@
         }
 
         .heading-letter {
-            font-family: 'Bubblegum Sans', cursive;
+            font-family: 'Nunito', sans-serif;
             font-size: 80px;
             color: #FFCCF2;
             opacity: 0; /* Initially hidden */
@@ -61,19 +62,22 @@
         }
 
         /* Link styling */
-        .link {
-            position: absolute;
-            top: 50%;
-            left: 0; 
-            margin-left: 210px;
-            transform: translateY(-50%);
-            background-color: rgba(255, 255, 255, 0.7);
-            padding: 10px 20px;
-            text-decoration: none;
-            color: #000;
-            border-radius: 5px;
-            z-index: 2; 
-        }
+    .link {
+    position: absolute;
+    top: 50%;
+    left: 0; 
+    font-size: 24px;
+    margin-left: 190px;
+    transform: translateY(-50%);
+    /* Remove background and border */
+    background-color: transparent;
+    border: none;
+    padding: 10px 20px;
+    font-family: 'Nunito', sans-serif;
+    text-decoration: none;
+    color: #000;
+    z-index: 2; 
+}
         
         /* Set body to cover the entire screen */
         body {
