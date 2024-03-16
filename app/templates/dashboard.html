@@ -109,8 +109,6 @@
         <span class="toggle-slider"></span>
       </label>
     </div>
-    <!-- Hidden input to store the state value -->
-    <input type="hidden" id="stateValue">
   </div>
   
   <p id="output">Status: all off</p>
@@ -127,9 +125,6 @@
 
       const state = tv + lights + blinds;
 
-      // Set the state value to the hidden input
-      document.getElementById("stateValue").value = state;
-
       let status;
       switch(state) {
         case 0: status = "all off"; break;
@@ -144,7 +139,7 @@
       }
 
       document.getElementById("output").textContent = "Status: " + status;
-
+      
       // Change the image when lights are turned on
       if (lights === 2) {
         document.getElementById("image").src = "/static/sully_lamp_light.png"; // Change the src attribute to the new image path
@@ -152,31 +147,18 @@
         document.getElementById("image").src = "/static/sully_lamp.png"; // Revert to the original image when lights are turned off
       }
 
-<<<<<<< Updated upstream
       saveState(state);
     }
 
     function saveState(state)
     {
-=======
-      // Save state to the database
-      saveState(state);
-    }
-
-    function saveState(state) {
-      // Send AJAX request to update_state.php
->>>>>>> Stashed changes
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           console.log(this.responseText);
         }
       };
-<<<<<<< Updated upstream
       xhttp.open("POST", "/update_state/", true);  // URL mapped to the Django view
-=======
-      xhttp.open("POST", "update_state.php", true);
->>>>>>> Stashed changes
       xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xhttp.send("state=" + state);
     }
