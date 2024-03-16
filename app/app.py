@@ -98,11 +98,17 @@ def update_state():
         if state_value is not None:
             # Connect to MySQL database
             try:
-                conn = mysql.connector.connect(**db_config)
+                conn = mysql.connector.connect(
+                    host=os.getenv("HOST"),
+                    user=os.getenv("USER"),
+                    password=os.getenv("PASSWORD"),
+                    database=os.getenv("DATABASE"),
+                    auth_plugin=os.getenv("AUTH_PLUGIN"))
+                
                 cursor = conn.cursor()
 
                 # Insert state value into the database
-                cursor.execute("INSERT INTO your_table_name (state_value) VALUES (%s)", [state_value])
+                cursor.execute("INSERT INTO smart_home_state (state_value) VALUES (%s)", [state_value])
                 conn.commit()
 
                 return 'State updated successfully', 200
