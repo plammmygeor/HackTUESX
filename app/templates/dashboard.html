@@ -147,17 +147,20 @@
         document.getElementById("image").src = "/static/sully_lamp.png"; // Revert to the original image when lights are turned off
       }
 
-      saveState();
+      saveState(state);
     }
 
-    function saveState() {
-      const tvState = document.querySelector('#tv').checked;
-      const lightsState = document.querySelector('#lights').checked;
-      const blindsState = document.querySelector('#blinds').checked;
-
-      localStorage.setItem('tvState', tvState);
-      localStorage.setItem('lightsState', lightsState);
-      localStorage.setItem('blindsState', blindsState);
+    function saveState(state)
+    {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          console.log(this.responseText);
+        }
+      };
+      xhttp.open("POST", "/update_state/", true);  // URL mapped to the Django view
+      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhttp.send("state=" + state);
     }
 
     function loadState() {
