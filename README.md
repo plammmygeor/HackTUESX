@@ -127,9 +127,13 @@ https://docs.google.com/presentation/d/1BB1BeoStR4qal8qSW6mt_7psANaIRBVNeGXguayx
 ![alt text](README_img/team.png)
 
 **Ментор**: Кръстин Томов, Випуск 2018
+
 **Embedded**: Виктор Димитров, 12Г, Випуск 2024
+
 **Backend**: Пламена Георгиева, 12Г, Випуск 2024
+
 **Frontend**: Надежда Георгиева, 12В, Випуск 2024
+
 **TeamLead**: Мартин Тарлев, 12Г, Випуск 2024
 
 
