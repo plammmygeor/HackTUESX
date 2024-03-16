@@ -124,8 +124,8 @@ void setup() {
   pinMode(16, OUTPUT); //buzzer
   pinMode(17, OUTPUT); //tv
   pinMode(18, OUTPUT); //lamp
-  pinMode(39, OUTPUT); //motor
   pinMode(40, OUTPUT); //motor
+  pinMode(41, OUTPUT); //motor
 
   Serial.begin(115200);
   Serial.println("\nConnecting to " + String(ssid));
@@ -154,9 +154,11 @@ void loop() {
 
   if(sleepValue == 1 & workValue == 1)
   {
+    digitalWrite(40, LOW);
+    digitalWrite(41, LOW);
     digitalWrite(16, HIGH);
     delay(10000);
-    digitalWrite(16, LOW);
+    digitalWrite(16, LOW);    
     Serial.println("sleep 1 work 1");
   }
   else if(sleepValue == 1 & workValue == 0)
@@ -217,7 +219,7 @@ void loop() {
     digitalWrite(17, LOW);
     digitalWrite(18, HIGH);
     
-    if(distance < 100) //if blinds are closed 
+    if(distance < 10) //if blinds are closed 
     {
       digitalWrite(40, LOW);
       digitalWrite(41, HIGH);
@@ -229,7 +231,7 @@ void loop() {
     Serial.println("TV and lamp");
     digitalWrite(17, HIGH);
     digitalWrite(18, HIGH);
-    if(distance < 100) //if blinds are closed 
+    if(distance < 10) //if blinds are closed 
     {
       digitalWrite(40, LOW);
       digitalWrite(41, HIGH);
