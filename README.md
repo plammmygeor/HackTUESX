@@ -124,6 +124,9 @@ https://docs.google.com/presentation/d/1BB1BeoStR4qal8qSW6mt_7psANaIRBVNeGXguayx
 ![alt text](README_img/technologies.png)
 
 ## Нашият екип
+
+**QUATRO DUMMIES**
+
 ![alt text](README_img/team.png)
 
 **Ментор**: Кръстин Томов, Випуск 2018
