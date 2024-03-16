@@ -91,31 +91,19 @@ def update_work_hours():
 
     return jsonify({"message": "Work hours updated successfully"})
 
-@app.route('/update_state', methods=['POST'])
+@app.route('/update_state', methods=['GET', 'POST'])
 def update_state():
     if request.method == 'POST':
         state_value = request.form.get('state')
         if state_value is not None:
-            # Connect to MySQL database
-            try:
-                conn = dbconnection()
-                cursor = conn.cursor()
+            # Perform database update here
+            cursor = dbconnection.cursor()
+            query = "INSERT INTO smart_home_state (state_value) VALUES (%s)"
+            cursor.execute(query, (state_value, ))
+            dbconnection.commit()
+            cursor.close()
 
-                # Insert state value into the database
-                cursor.execute("INSERT INTO smart_home_state (state_value) VALUES (%s)", [state_value])
-                conn.commit()
-
-                return 'State updated successfully', 200
-
-            except mysql.connector.Error as err:
-                print(f"Error: {err}")
-                return 'Error updating state', 500
-
-            finally:
-                cursor.close()
-                conn.close()
-
-    return 'Invalid request', 400
+            return 'State updated successfully', 200
 
 if __name__ == '__main__':
     app.run(debug=True)
