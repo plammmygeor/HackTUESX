@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, jsonify
 import mysql.connector
 import pandas as pd
 import matplotlib.pyplot as plt
+import paho.mqtt.client as paho
+from paho import mqtt
 import io
 import base64
 import os
@@ -20,6 +22,22 @@ dbconnection = mysql.connector.connect(
     auth_plugin=os.getenv("AUTH_PLUGIN")
 )
 
+broker = "ohhhhhh-ny7qjv.a01.euc1.aws.hivemq.cloud"
+port = 8883
+topic = "HACKTUESX/QUATRO/SH"
+username = "tester2"
+password = "4Dummies"
+
+def on_connect(client, userdata, flags, rc, properties=None):
+    if rc == 0:
+        print("Connected to MQTT Broker!")
+        client.subscribe(topic)
+    else:
+        print("Failed to connect, return code %d\n", rc)
+        
+def on_publish(client, userdata, mid):
+    print("Message published:", mid)
+        
 # Function to fetch data from the database and generate plot
 def generate_plot():
     query = "SELECT timestamp, pulse_sensor FROM sleep_table"
@@ -102,6 +120,17 @@ def update_state():
             cursor.execute(query, (state_value, ))
             dbconnection.commit()
             cursor.close()
+            
+            client = paho.Client(client_id="", userdata=None, protocol=paho.MQTTv5)
+            client.on_connect = on_connect
+            client.tls_set(tls_version=mqtt.client.ssl.PROTOCOL_TLS)
+            client.username_pw_set(username, password)
+            client.connect(broker, port, 60)
+            client.subscribe(topic, qos=2)
+            client.on_publish = on_publish
+            client.publish(topic, state_value)
+            print("Status value published successfully:", state_value)
+            client.loop()
 
             return 'State updated successfully', 200
 
