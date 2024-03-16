@@ -98,13 +98,7 @@ def update_state():
         if state_value is not None:
             # Connect to MySQL database
             try:
-                conn = mysql.connector.connect(
-                    host=os.getenv("HOST"),
-                    user=os.getenv("USER"),
-                    password=os.getenv("PASSWORD"),
-                    database=os.getenv("DATABASE"),
-                    auth_plugin=os.getenv("AUTH_PLUGIN"))
-                
+                conn = dbconnection()
                 cursor = conn.cursor()
 
                 # Insert state value into the database
