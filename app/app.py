@@ -22,7 +22,7 @@ dbconnection = mysql.connector.connect(
     auth_plugin=os.getenv("AUTH_PLUGIN")
 )
 
-broker = "ohhhhhh-ny7qjv.a01.euc1.aws.hivemq.cloud"
+broker = "quatro-ny7qjv.a01.euc1.aws.hivemq.cloud"
 port = 8883
 topic = "HACKTUESX/QUATRO/SH"
 username = "tester2"

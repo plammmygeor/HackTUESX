@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-broker = "ohhhhhh-ny7qjv.a01.euc1.aws.hivemq.cloud"
+broker = "quatro-ny7qjv.a01.euc1.aws.hivemq.cloud"
 port = 8883
 topic_sleep = "HACKTUESX/QUATRO/sleep"
 username = "tester2"

@@ -17,7 +17,7 @@ mydb = mysql.connector.connect(
 )
 
 # On recieve
-broker = "ohhhhhh-ny7qjv.a01.euc1.aws.hivemq.cloud"
+broker = "quatro-ny7qjv.a01.euc1.aws.hivemq.cloud"
 port = 8883
 topic = "HACKTUESX/QUATRO/sens"
 username = "tester2"
