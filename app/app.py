@@ -25,7 +25,7 @@ dbconnection = mysql.connector.connect(
 broker = "quatro-ny7qjv.a01.euc1.aws.hivemq.cloud"
 port = 8883
 topic = "HACKTUESX/QUATRO/SH"
-username = "tester2"
+username = "QUATRO"
 password = "4Dummies"
 
 def on_connect(client, userdata, flags, rc, properties=None):

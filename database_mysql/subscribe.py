@@ -20,7 +20,7 @@ mydb = mysql.connector.connect(
 broker = "quatro-ny7qjv.a01.euc1.aws.hivemq.cloud"
 port = 8883
 topic = "HACKTUESX/QUATRO/sens"
-username = "tester2"
+username = "QUATRO"
 password = "4Dummies"
 
 def insert_data_into_database(pulse):

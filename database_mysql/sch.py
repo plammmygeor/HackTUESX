@@ -11,7 +11,7 @@ load_dotenv()
 broker = "quatro-ny7qjv.a01.euc1.aws.hivemq.cloud"
 port = 8883
 topic_sleep = "HACKTUESX/QUATRO/work"
-username = "tester2"
+username = "QUATRO"
 password = "4Dummies"
 
 connection = mysql.connector.connect(
