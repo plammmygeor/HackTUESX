@@ -180,6 +180,7 @@ void loop() {
       Serial.println("motor off");
     }
   }
+  /*
   else
   {
     digitalWrite(16, LOW);
@@ -188,57 +189,82 @@ void loop() {
     digitalWrite(41, LOW);
     Serial.println("Nothing");
   }
-
-  if(smarthomeValue == 0)
+*/
+  if(smarthomeValue == 0 & sleepValue == 0)
   {
     Serial.println("smart home 0");
     digitalWrite(17, LOW);
     digitalWrite(18, LOW);
-    if(distance < 100) //if blinds are closed 
+    
+      if(distance < 8) //if blinds are Closed
+    {
+      digitalWrite(40, HIGH);
+      digitalWrite(41, LOW);
+      Serial.println("motor on");
+    }
+    else if(distance > 50) //if blinds are closed / when they close
     {
       digitalWrite(40, LOW);
-      digitalWrite(41, HIGH);
-      Serial.println("motor going up ");
+      digitalWrite(41, LOW);
+      Serial.println("motor off");
     }
   }
-  else if(smarthomeValue == 1)
+  else if(smarthomeValue == 1 & sleepValue == 0)
   {
     Serial.println("TV on");
     digitalWrite(17, HIGH);
     digitalWrite(18, LOW);
-    if(distance < 100) //if blinds are closed 
+     if(distance < 8) //if blinds are Closed
+    {
+      digitalWrite(40, HIGH);
+      digitalWrite(41, LOW);
+      Serial.println("motor on");
+    }
+    else if(distance > 50) //if blinds are closed / when they close
     {
       digitalWrite(40, LOW);
-      digitalWrite(41, HIGH);
-      Serial.println("motor going up ");
+      digitalWrite(41, LOW);
+      Serial.println("motor off");
     }
   }
-  else if(smarthomeValue == 2)
+  else if(smarthomeValue == 2 & sleepValue == 0)
   {
     Serial.println("lamp on");
     digitalWrite(17, LOW);
     digitalWrite(18, HIGH);
     
-    if(distance < 10) //if blinds are closed 
+     if(distance < 8) //if blinds are Closed
+    {
+      digitalWrite(40, HIGH);
+      digitalWrite(41, LOW);
+      Serial.println("motor on");
+    }
+    else if(distance > 50) //if blinds are closed / when they close
     {
       digitalWrite(40, LOW);
-      digitalWrite(41, HIGH);
-      Serial.println("motor going up ");
+      digitalWrite(41, LOW);
+      Serial.println("motor off");
     }
   }
-  else if(smarthomeValue == 3)
+  else if(smarthomeValue == 3 & sleepValue == 0)
   {
     Serial.println("TV and lamp");
     digitalWrite(17, HIGH);
     digitalWrite(18, HIGH);
-    if(distance < 10) //if blinds are closed 
+     if(distance < 8) //if blinds are Closed
+    {
+      digitalWrite(40, HIGH);
+      digitalWrite(41, LOW);
+      Serial.println("motor on");
+    }
+    else if(distance > 50) //if blinds are closed / when they close
     {
       digitalWrite(40, LOW);
-      digitalWrite(41, HIGH);
-      Serial.println("motor going up ");
+      digitalWrite(41, LOW);
+      Serial.println("motor off");
     }
   }
-  else if(smarthomeValue == 4)
+  else if(smarthomeValue == 4 & sleepValue == 0)
   {
     Serial.println("blinds on");
     digitalWrite(17, LOW);
@@ -256,7 +282,7 @@ void loop() {
       Serial.println("motor off");
     }
   }
-  else if(smarthomeValue == 5)
+  else if(smarthomeValue == 5 & sleepValue == 0)
   {
     Serial.println("TV and blinds ");
     digitalWrite(17, HIGH);
@@ -274,7 +300,7 @@ void loop() {
       Serial.println("motor off");
     }
   }
-  else if(smarthomeValue == 6)
+  else if(smarthomeValue == 6 & sleepValue == 0)
   {
     Serial.println("lamp and blinds ");
     digitalWrite(17, LOW);    
@@ -292,7 +318,7 @@ void loop() {
       Serial.println("motor off");
     }
   }
-  else if(smarthomeValue == 7)
+  else if(smarthomeValue == 7 & sleepValue == 0)
   {
     Serial.println("all");
     digitalWrite(17, HIGH);
